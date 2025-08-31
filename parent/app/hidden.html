@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            const { ipcRenderer } = require('electron');
+            let button1Pressed = false;
+            function pollGamepads() {
+                const gamepads = navigator.getGamepads();
+                for (let gp of gamepads) {
+                    if (!gp) continue;
+                    //your gamepad name
+                    if (gp.id.includes('RP2040 Zero')) {
+                        //index of the button
+                        const buttonIndex = 1;
+                        const btn = gp.buttons[buttonIndex];
+                        if (btn.pressed && !button1Pressed) {
+                            button1Pressed = true;
+                            ipcRenderer.send('button1-pressed');
+                            const audio = new Audio('delete.mp3');
+                            audio.play();
+                        } else if (!btn.pressed && button1Pressed) {
+                            button1Pressed = false;
+                        }
+                    }
+                }
+                requestAnimationFrame(pollGamepads);
+            }
+            pollGamepads();
+        </script>
+    </body>
+</html>

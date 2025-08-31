@@ -1,0 +1,14 @@
+{
+    "name": "delete",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "devDependencies": {
+        "electron": "^26.0.0"
+    },
+    "dependencies": {
+        "node-fetch": "^2.7.0"
+    }
+}
